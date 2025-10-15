@@ -6,10 +6,12 @@ public class PlayerController2D : MonoBehaviour
     public float jumpForce = 10f;
     private Rigidbody2D rb;
     private bool isGrounded;
+    private Animator anim;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -21,6 +23,19 @@ public class PlayerController2D : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
+
+        if (moveInput != 0)
+        {
+            float scaleX = Mathf.Abs(transform.localScale.x);
+            transform.localScale = new Vector3(
+                moveInput > 0 ? scaleX : -scaleX,
+                transform.localScale.y,
+                transform.localScale.z
+            );
+        }
+
+        anim.SetFloat("Speed", Mathf.Abs(moveInput));
+        anim.SetBool("IsGrounded", isGrounded);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
