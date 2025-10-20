@@ -9,7 +9,7 @@ public class FinishZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Level Completed!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene("WinScene");
         }
     }
 }

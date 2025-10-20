@@ -7,11 +7,14 @@ public class PlayerController2D : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private Animator anim;
+    private AudioSource audioSource;
+    public AudioClip jumpSound;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -22,6 +25,7 @@ public class PlayerController2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            audioSource.PlayOneShot(jumpSound);
         }
 
         if (moveInput != 0)
